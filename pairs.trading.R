@@ -53,20 +53,20 @@ coint.tests <- function(x, y, x.title = "", y.title = "", input.unit.root.p.valu
 
 get.adj.close.price <- function(stock, from = as.Date("1800-01-01"), to = Sys.Date() - 1, online = TRUE) {
 	if (!is.character(stock)) 
-    	stop("'stock' must be a character (string)")
+		stop("'stock' must be a character (string)")
     	
-    append.to.data <- function(x, file) {
-    	if (file.exists(file)) {
-    		old.objects <- load(file)
-    		save(list = c(old.objects[!old.objects == x], x), file = file)
-    	}
-    	else {
-    		save(list = (x), file = file)
-    	}
-    }	
+	append.to.data <- function(x, file) {
+		if (file.exists(file)) {
+			old.objects <- load(file)
+			save(list = c(old.objects[!old.objects == x], x), file = file)
+		}
+		else {
+			save(list = (x), file = file)
+		}
+	}	
     	
-    data.file.name = "quote.data.rda"	
-    if (online) {
+	data.file.name = "quote.data.rda"	
+	if (online) {
 		assign(stock, get.hist.quote(instrument = stock, start = from, end = to, quote = "AdjClose"))
 		append.to.data(stock, data.file.name)
 	}
@@ -78,9 +78,9 @@ get.adj.close.price <- function(stock, from = as.Date("1800-01-01"), to = Sys.Da
 
 coint.tests.stocks <- function(stock1, stock2, from = as.Date("1800-01-01"), to = Sys.Date() - 1, online = TRUE) {
 	if (!is.character(stock1)) 
-    	stop("'stock1' must be a character (string)")
+		stop("'stock1' must be a character (string)")
 	if (!is.character(stock2)) 
-    	stop("'stock2' must be a character (string)")   
+		stop("'stock2' must be a character (string)")   
              
 	coint.tests(get.adj.close.price(stock1, from, to, online), get.adj.close.price(stock2, from, to, online), stock1, stock2)
 }
@@ -91,7 +91,7 @@ is.coint.tests <- function(x) class(x) == "coint.tests"
 
 validate.coint.tests.class <- function(x) {
 	if (!is.coint.tests(x)) 
-        stop("'plot.coint.tests' applied to non coint tests result")
+		stop("'plot.coint.tests' applied to non coint tests result")
 }
 
 plot.coint.tests <- function(x, ...) {
